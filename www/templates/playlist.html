@@ -1,0 +1,38 @@
+<ion-view view-title="Playlist">
+    <ion-content>
+        <div id="errortxt"></div>
+        <form id="smsform" action="javascript:;" method="post" ng-submit="sendFree()" autocomplete="off">
+            <div class="list padding">
+                <input type="hidden" name="IL_IN_TAG" value="1" class="IL_OPTIMIZED">
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Mobile Number</span>
+                    <input type="hidden" name="countrycode" value="63">
+                    <input type="text" name="smsto" id="smsto" placeholder="+63">
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Message</span>
+                    <textarea id="message" name="message" maxlength="160" ng-model="message" placeholder="Message Here" onkeydown="textCounter(this.form.message,this.form.msgLen,160)" onkeyup="textCounter(this.form.message,this.form.msgLen,160)"></textarea>
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Characters left</span>
+                    <input type="text" name="msgLen" id="msgLen" size="1" maxlength="3" value="160" readonly>
+                </label>
+                <label class="item item-button-right">
+                    <img id="captcha" ng-src="{{image}}" align="top">
+                    <button class="button button-positive" ng-click="refreshImage()">
+                        <i class="icon ion-refresh"></i>
+                    </button>
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Verification Code</span>
+                    <input type="text" name="imgcode" id="imgcode" placeholder="Verification Code">
+                    <input type="hidden" name="27a5996e38d21e6e7d8bf5151ec3bc4cba4466" value="77f7d83e6591442e7989fc414081ee1afc1f">
+                </label>
+            </div>
+            <div class="padding">
+                <input type="submit" class="button button-block button-positive" value="Send">
+            </div>
+            <input type="hidden" name="IL_IN_TAG" value="1" class="IL_OPTIMIZED">
+        </form>
+    </ion-content>
+</ion-view>

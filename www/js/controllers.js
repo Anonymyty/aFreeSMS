@@ -47,45 +47,16 @@ angular.module('starter.controllers', [])
     }];
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams, $ionicLoading, $ionicPopup) {
-    var ord = Math.random();
-    ord = ord * 10000000000000000000;
+.controller('PlaylistCtrl', function($scope, $stateParams, $ionicLoading, $ionicPopup, $http) {
 
-    function xajax_processMsg() {
-        return xajax.call("\u0070\u0072\157\u0063\145\u0073\u0073\u004d\u0073\u0067", arguments, 1);
-        $ionicLoading.hide();
-    }
-
-    function xajax_viewSMS() {
-        return xajax.call("\u0076\151\145\u0077\u0053\u004d\u0053", arguments, 1);
-    }
-
-    function xajax_adBlock() {
-        return xajax.call("\141\u0064\u0042\u006c\157\u0063\u006b", arguments, 1);
-    }
-
-    function xajax_sel() {
-        return xajax.call("\u0073\145\u006c", arguments, 1);
-    }
+    $scope.imgcode = "";
+    $scope.smsto = "";
+    $scope.message = "";
+    $scope.msgLen = "900";
+    $scope.imgcode = "";
 
     function sendFree() {
-        /*$ionicLoading.show({
-            template: 'Please wait...'
-        });*/
-        xajax_processMsg(xajax.getFormValues("smsform"));
-        return false
-    }
-
-    $scope.image = 'http://afreesms.com/image.php?o=' + ord;
-
-    $scope.refreshImage = function() {
-        var ord = Math.random();
-        ord = ord * 10000000000000000000;
-
-        $scope.image = 'http://afreesms.com/image.php?o=' + ord;
-    };
-
-    $scope.sendFree = function() {
+        console.log('$scope.message: ',$scope.message);
         if ($('#smsto').val() === '') {
             $ionicPopup.alert({
                 title: 'WARNING',
@@ -106,19 +77,24 @@ angular.module('starter.controllers', [])
             return;
         }
 
+        var un = 'jbagaresgaray';
+        var pwd = 'bagares30';
+        var dstno = $scope.smsto || $('#smsto').val();
+        var msg = $scope.message || $('#message').val();
+        var sendid = '09394049310';
+
+        $http.get('http://isms.com.my/isms_send.php?un=' + un + '&pwd=' + pwd + '&dstno=' + dstno + '&msg=' + msg + '&type=1&sendid=' + sendid)
+            .success(function(data, status, headers, config) {
+                console.log('status: ', status);
+                console.log('success: ', data);
+            })
+            .error(function(data, status, headers, config) {
+                console.log('status: ', status);
+                console.log('error: ', data);
+            });
+    }
+
+    $scope.sendFree = function() {
         sendFree();
     };
-
-    $(document).ready(function() {
-        console.log('x900e45f43df28adb1e558fa3106c2078: ', x900e45f43df28adb1e558fa3106c2078);
-        if (x900e45f43df28adb1e558fa3106c2078) {
-            eraseCookie("\x61\x64\x62\x78")
-        } else {
-            xajax_adBlock();
-            createCookie("\x61\x64\x62\x78", 1, 1)
-        }
-    });
-
-    RDset(1);
-
 });
